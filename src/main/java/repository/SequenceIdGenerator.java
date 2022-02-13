@@ -1,4 +1,6 @@
-class SequenceIdGenerator {
+package repository;
+
+public class SequenceIdGenerator {
     private static int sequenceId;
 
     SequenceIdGenerator() {

@@ -1,7 +1,9 @@
+package repository;
+
 import java.util.HashMap;
 import java.util.Map;
 
-class PrefixDatabase {
+public class PrefixDatabase {
 
     private static final Map<String, Integer> dataBaseLength = new HashMap<>(){{
         put("01", 14);
@@ -10,12 +12,6 @@ class PrefixDatabase {
         put("15", 6);
         put("17", 6);
         put("21", -20);
-//        put("02", 14);
-//        put("12", 6);
-//        put("13", 6);
-//        put("16", 6);
-//        put("20", 2);
-//        put("31", 8);
 
     }};
 
@@ -28,15 +24,15 @@ class PrefixDatabase {
         put("21", "Serial number: ");
     }};
 
-    Integer find(String key){
+    public Integer find(String key){
         return dataBaseLength.get(key);
     }
 
-    String getName(String key){
+    public String getName(String key){
         return dataBaseNames.get(key);
     }
 
-    boolean contains(String key){
+    public boolean contains(String key){
         return dataBaseLength.containsKey(key);
     }
 }
