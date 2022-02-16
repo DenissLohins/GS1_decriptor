@@ -1,10 +1,10 @@
 class SequenceIdGenerator {
-    private static long sequenceId;
+    private static int sequenceId;
 
-    private SequenceIdGenerator() {
+    SequenceIdGenerator() {
     }
 
-    public static long generateId() {
+    public static int generateId() {
         return sequenceId++;
     }
 

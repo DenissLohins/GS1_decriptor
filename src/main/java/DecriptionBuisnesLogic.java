@@ -1,15 +1,19 @@
 import java.util.Scanner;
 
-class DecriptorApplication {
+class DecriptionBuisnesLogic {
 
-    public static void main(String[] args) {
+    private  AuditTrailDataBase database = new AuditTrailDataBase();
+
+
+    void decrypt() {
+        Scanner scanner = new Scanner(System.in);
         String output = "";
         int position = 2;
         int serialNumberEdnPosition = 0;
         int batchNumberFinalPosition = 0;
-        Scanner scanner = new Scanner(System.in);
         System.out.println("Please enter code to decrypt: ");
         String input = scanner.nextLine();
+        database.add(input);
         var inputChars = input.toCharArray();
         if (inputChars[0] == ']' && inputChars[1] == '2') {
             if (inputChars[position] == '0' && inputChars[position + 1] == '1') {
@@ -44,7 +48,7 @@ class DecriptorApplication {
                             break;
                         }
                     }
-                    for (int i = position; i <batchNumberFinalPosition; i++) {
+                    for (int i = position; i < batchNumberFinalPosition; i++) {
                         output = output + inputChars[i];
                     }
                     output = output + "; ";
@@ -64,5 +68,9 @@ class DecriptorApplication {
         }
 
         System.out.println(output);
+    }
+
+    void showHistory(){
+        database.printAuditTrail();
     }
 }
