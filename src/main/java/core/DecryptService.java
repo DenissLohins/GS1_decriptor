@@ -89,11 +89,5 @@ public class DecryptService {
         return output;
     }
 
-    /*private String getInput() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Please enter code to decrypt: ");
-        String input = scanner.nextLine();
-        return input;
-    }*/
 
 }

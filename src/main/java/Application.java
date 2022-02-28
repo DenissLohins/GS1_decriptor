@@ -1,7 +1,4 @@
-import console.DecryptUIAction;
-import console.ShowHistoryUIAction;
-import console.UIAction;
-import console.UIMenu;
+import console.*;
 import repository.AuditTrailDatabase;
 
 import java.util.Arrays;
@@ -14,7 +11,8 @@ public class Application {
         List<UIAction> actions;
         actions = Arrays.asList(
                 new DecryptUIAction(auditTrailDataBase),
-                new ShowHistoryUIAction(auditTrailDataBase)
+                new ShowHistoryUIAction(auditTrailDataBase),
+                new ExitUIAction()
                 );
 
         var uiMenu = new UIMenu(actions);

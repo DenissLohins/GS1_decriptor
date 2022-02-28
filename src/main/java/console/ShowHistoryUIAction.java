@@ -1,5 +1,7 @@
 package console;
 
+import core.GetHistoryService;
+import dto.GetHistoryResponse;
 import repository.AuditTrailDatabase;
 
 public class ShowHistoryUIAction implements UIAction{
@@ -12,7 +14,9 @@ public class ShowHistoryUIAction implements UIAction{
 
     @Override
     public void execute() {
-        database.printAuditTrail();
+        GetHistoryService service = new GetHistoryService(database);
+        GetHistoryResponse response = service.findAll();
+        response.printInConsole();
     }
 
     @Override
