@@ -1,5 +1,8 @@
 package core;
 
+import core.Validation.ValidationException;
+import core.Validation.ValidationService;
+import dto.DecryptRequest;
 import repository.AuditTrailDatabase;
 import repository.PrefixDatabase;
 
@@ -10,17 +13,21 @@ public class DecryptService {
     PrefixDatabase prefixDatabase;
     ArrayList<String> usedPrefix = new ArrayList<String>();
     private AuditTrailDatabase database;
+    private DecryptRequest request;
+
 
     public DecryptService(PrefixDatabase prefixDatabase, AuditTrailDatabase database) {
         this.prefixDatabase = prefixDatabase;
         this.database = database;
     }
 
-    public void execute(){
+    public void execute(DecryptRequest request){
+        this.request = request;
+//        ValidationService validationService = new ValidationService() // nado podumatj kak eto oformitj
         String output = "";
         int position = 0;
         int finalPosition = 0;
-        String input = getInput();
+        String input = request.getRequestString();
         database.add(input);
         var inputChars = input.toCharArray();
         if (inputChars[position] == ']' && inputChars[position + 1] == '2') {
@@ -82,11 +89,11 @@ public class DecryptService {
         return output;
     }
 
-    private String getInput() {
+    /*private String getInput() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Please enter code to decrypt: ");
         String input = scanner.nextLine();
         return input;
-    }
+    }*/
 
 }
