@@ -9,4 +9,6 @@ public class NotNullvalidaitonRule implements ValidatonRule {
             throw new ValidationException("Request string must be not null");
         }
     }
+
+
 }

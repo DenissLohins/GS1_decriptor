@@ -18,14 +18,18 @@ public class AuditTrailDatabase {
     }
 
     public GetHistoryResponse getHistory() {
-        GetHistoryResponse response = new GetHistoryResponse();
-        for (int i = 0; i < dataBase.size(); i++) {
-            response.add(dataBase.get(i));
-        }
+        ArrayList<String> interimResponse = prepareResponse();
+        GetHistoryResponse response = new GetHistoryResponse(interimResponse);
         return response;
-//        for (int i = 0; i < dataBase.size(); i++) {
-//            System.out.println(dataBase.get(i));
-//        }
     }
+
+    private ArrayList<String> prepareResponse(){
+        ArrayList<String> interimResponse = new ArrayList<>();
+        for (int i = 0; i < dataBase.size(); i++) {
+            interimResponse.add(dataBase.get(i).toString());
+            }
+        return interimResponse;
+    }
+
 
 }

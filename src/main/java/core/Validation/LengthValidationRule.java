@@ -4,13 +4,16 @@ import dto.DecryptRequest;
 
 public class LengthValidationRule implements ValidatonRule {
 
+    private static final int minimalLength = 6;
+    public static final int maximalLength = 71;
     @Override
     public void validate(DecryptRequest request) {
-        if (request.getRequestString().length() < 6) {
+        if (request.getRequestString().length() < minimalLength) {
             throw new ValidationException("Request string is to short");
         }
-        if(request.getRequestString().length() > 71){
+        if(request.getRequestString().length() > maximalLength){
             throw new ValidationException("Request string is to long");
         }
     }
+
 }

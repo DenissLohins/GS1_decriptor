@@ -6,13 +6,12 @@ import java.util.Scanner;
 public class UIMenu {
     private final List<UIAction> uiActions;
 
-    private boolean whileCycle = true;
     public UIMenu(List<UIAction> uiActions) {
         this.uiActions = uiActions;
     }
 
     public void startUI() {
-        while (whileCycle) {
+        while (true) {
             try {
                 System.out.println("Please make your choice: ");
                 for (int i = 0; i < uiActions.size(); i++) {

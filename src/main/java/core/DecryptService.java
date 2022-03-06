@@ -3,17 +3,18 @@ package core;
 import core.Validation.ValidationException;
 import core.Validation.ValidationService;
 import dto.DecryptRequest;
+import lombok.AllArgsConstructor;
 import repository.AuditTrailDatabase;
+import repository.KnownGTINNames;
 import repository.PrefixDatabase;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
-public class DecryptService {
+public class  DecryptService {
     PrefixDatabase prefixDatabase;
     ArrayList<String> usedPrefix = new ArrayList<String>();
     private AuditTrailDatabase database;
-    private DecryptRequest request;
+    private KnownGTINNames gtinNames = new KnownGTINNames();
 
 
     public DecryptService(PrefixDatabase prefixDatabase, AuditTrailDatabase database) {
@@ -22,8 +23,7 @@ public class DecryptService {
     }
 
     public void execute(DecryptRequest request){
-        this.request = request;
-//        ValidationService validationService = new ValidationService() // nado podumatj kak eto oformitj
+//        ValidationService validationService = new ValidationService() //ToDo
         String output = "";
         int position = 0;
         int finalPosition = 0;
@@ -42,6 +42,9 @@ public class DecryptService {
                 String codeName = prefixDatabase.getName(prefix);
                 int length = prefixDatabase.find(prefix);
                 output = output + codeName;
+                if (codeName == "GTIN: "){
+                    output = output + "(" + fillProductNameByGTIN(position, inputChars) + ") ";
+                }
                 if (length < 0) {
                     int temporaryLength = -length;
                     finalPosition = getFinalPosition(prefixDatabase, usedPrefix, position, finalPosition, inputChars, temporaryLength);
@@ -89,5 +92,12 @@ public class DecryptService {
         return output;
     }
 
-
+    private String fillProductNameByGTIN(int position, char[] inputChars) {
+        String gtin = "";
+        for (int i = position; i < position + 14; i++) {
+            gtin = gtin + inputChars[i];
+        }
+        String productName = gtinNames.getNameByGTIN(gtin);
+        return productName;
+    }
 }

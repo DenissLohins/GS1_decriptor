@@ -1,16 +1,13 @@
 package dto;
 
-import repository.RepositoryObject;
 
 import java.util.ArrayList;
 
 public class GetHistoryResponse {
-    private ArrayList<String> response = new ArrayList<>();
+    ArrayList<String> response = new ArrayList<>();
 
-
-    public void add(RepositoryObject object){
-        String interimresult = object.toString();
-        response.add(interimresult);
+    public GetHistoryResponse(ArrayList <String> responseFromDB) {
+        this.response  = responseFromDB;
     }
 
     public void printInConsole(){
