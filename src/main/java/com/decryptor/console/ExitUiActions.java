@@ -1,7 +1,8 @@
 package com.decryptor.console;
 
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
-
+@Order(3)
 @Component
 public class ExitUiActions implements UiActions {
     @Override

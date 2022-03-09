@@ -1,7 +1,9 @@
 package com.decryptor.dto;
 
-import java.util.Objects;
+import lombok.Data;
 
+import java.util.Objects;
+@Data
 public class DecryptRequest {
 
     private final String requestString;

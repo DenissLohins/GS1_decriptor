@@ -1,8 +1,10 @@
 package com.decryptor.dto;
 
 
-import java.util.ArrayList;
+import lombok.Data;
 
+import java.util.ArrayList;
+@Data
 public class GetHistoryResponse {
     ArrayList<String> response = new ArrayList<>();
 

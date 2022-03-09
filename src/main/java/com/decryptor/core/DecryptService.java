@@ -1,6 +1,7 @@
 package com.decryptor.core;
 
 import com.decryptor.dto.DecryptRequest;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import com.decryptor.repository.AuditTrailDatabase;
 import com.decryptor.repository.KnownGTINNames;
@@ -12,7 +13,7 @@ public class  DecryptService {
     PrefixDatabase prefixDatabase;
     ArrayList<String> usedPrefix = new ArrayList<String>();
     private AuditTrailDatabase database;
-    private KnownGTINNames gtinNames = new KnownGTINNames();
+    private final KnownGTINNames gtinNames = new KnownGTINNames();
 
 
     public DecryptService(PrefixDatabase prefixDatabase, AuditTrailDatabase database) {

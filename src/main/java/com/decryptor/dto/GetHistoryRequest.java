@@ -1,5 +1,8 @@
 package com.decryptor.dto;
 
+import lombok.Data;
+
+@Data
 public class GetHistoryRequest {
 
 

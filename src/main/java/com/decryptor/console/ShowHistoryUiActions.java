@@ -3,9 +3,10 @@ package com.decryptor.console;
 import com.decryptor.core.GetHistoryService;
 import com.decryptor.dto.GetHistoryResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import com.decryptor.repository.AuditTrailDatabase;
-
+@Order(2)
 @Component
 public class ShowHistoryUiActions implements UiActions {
 

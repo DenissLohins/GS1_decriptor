@@ -3,12 +3,13 @@ package com.decryptor.console;
 import com.decryptor.core.DecryptService;
 import com.decryptor.dto.DecryptRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import com.decryptor.repository.AuditTrailDatabase;
 import com.decryptor.repository.PrefixDatabase;
 
 import java.util.Scanner;
-
+@Order(1)
 @Component
 public class DecryptUiActions implements UiActions {
 
