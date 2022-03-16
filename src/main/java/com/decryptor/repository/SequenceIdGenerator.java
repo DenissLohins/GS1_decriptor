@@ -1,5 +1,8 @@
-package repository;
+package com.decryptor.repository;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class SequenceIdGenerator {
     private static int sequenceId;
 

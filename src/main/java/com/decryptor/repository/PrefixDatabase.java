@@ -1,8 +1,10 @@
-package repository;
+package com.decryptor.repository;
+
+import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
-
+@Component
 public class PrefixDatabase {
 
     private static final Map<String, Integer> dataBaseLength = new HashMap<>(){{

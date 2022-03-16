@@ -1,26 +1,32 @@
-package core;
+package com.decryptor.core;
 
-import repository.AuditTrailDatabase;
-import repository.PrefixDatabase;
+import com.decryptor.dto.DecryptRequest;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
+import com.decryptor.repository.AuditTrailDatabase;
+import com.decryptor.repository.KnownGTINNames;
+import com.decryptor.repository.PrefixDatabase;
 
 import java.util.ArrayList;
-import java.util.Scanner;
-
-public class DecryptService {
+@Component
+public class  DecryptService {
     PrefixDatabase prefixDatabase;
     ArrayList<String> usedPrefix = new ArrayList<String>();
     private AuditTrailDatabase database;
+    private final KnownGTINNames gtinNames = new KnownGTINNames();
+
 
     public DecryptService(PrefixDatabase prefixDatabase, AuditTrailDatabase database) {
         this.prefixDatabase = prefixDatabase;
         this.database = database;
     }
 
-    public void execute(){
+    public void execute(DecryptRequest request){
+//        ValidationService validationService = new ValidationService() //ToDo
         String output = "";
         int position = 0;
         int finalPosition = 0;
-        String input = getInput();
+        String input = request.getRequestString();
         database.add(input);
         var inputChars = input.toCharArray();
         if (inputChars[position] == ']' && inputChars[position + 1] == '2') {
@@ -35,6 +41,9 @@ public class DecryptService {
                 String codeName = prefixDatabase.getName(prefix);
                 int length = prefixDatabase.find(prefix);
                 output = output + codeName;
+                if (codeName == "GTIN: "){
+                    output = output + "(" + fillProductNameByGTIN(position, inputChars) + ") ";
+                }
                 if (length < 0) {
                     int temporaryLength = -length;
                     finalPosition = getFinalPosition(prefixDatabase, usedPrefix, position, finalPosition, inputChars, temporaryLength);
@@ -82,11 +91,12 @@ public class DecryptService {
         return output;
     }
 
-    private String getInput() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Please enter code to decrypt: ");
-        String input = scanner.nextLine();
-        return input;
+    private String fillProductNameByGTIN(int position, char[] inputChars) {
+        String gtin = "";
+        for (int i = position; i < position + 14; i++) {
+            gtin = gtin + inputChars[i];
+        }
+        String productName = gtinNames.getNameByGTIN(gtin);
+        return productName;
     }
-
 }

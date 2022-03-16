@@ -1,12 +1,18 @@
-package console;
+package com.decryptor.console;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Scanner;
 
-public class UIMenu {
-    private final List<UIAction> uiActions;
+@Component
 
-    public UIMenu(List<UIAction> uiActions) {
+public class UiMenu {
+    private final List<UiActions> uiActions;
+
+@Autowired
+    public UiMenu(List<UiActions> uiActions) {
         this.uiActions = uiActions;
     }
 
@@ -27,4 +33,6 @@ public class UIMenu {
             }
         }
     }
+
+
 }
