@@ -1,12 +1,10 @@
 package com.decryptor.repository;
 
 import com.decryptor.dto.GetHistoryResponse;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
-
 import java.util.ArrayList;
-@Repository
-public class AuditTrailDatabase {
+//@Repository
+public class ArrayListDataBase implements DataBaseInterface{
 
     private ArrayList<RepositoryObject> dataBase = new ArrayList<>();
     private SequenceIdGenerator sequenceIdGenerator = new SequenceIdGenerator();

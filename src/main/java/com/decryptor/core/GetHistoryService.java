@@ -1,13 +1,17 @@
 package com.decryptor.core;
 
 import com.decryptor.dto.GetHistoryResponse;
+import com.decryptor.repository.DataBaseInterface;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import com.decryptor.repository.AuditTrailDatabase;
+
 @Component
 public class GetHistoryService {
-    private final AuditTrailDatabase database;
+    @Autowired
+    private final DataBaseInterface database;
 
-    public GetHistoryService(AuditTrailDatabase database) {
+
+    public GetHistoryService(DataBaseInterface database) {
         this.database = database;
     }
 

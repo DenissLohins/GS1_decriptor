@@ -1,0 +1,12 @@
+CREATE SCHEMA IF NOT EXISTS history DEFAULT CHARACTER SET utf8 ;
+USE history;
+
+--CREATE TABLE IF NOT EXISTS todo (
+--  id BIGINT NOT NULL AUTO_INCREMENT,
+--  name VARCHAR(100) NOT NULL,
+--  description VARCHAR(100) NULL,
+--  PRIMARY KEY (id)
+--)
+--  ENGINE = InnoDB;
+--
+--ALTER TABLE tasks ADD CONSTRAINT user_tasks_fk FOREIGN KEY (user_id) REFERENCES users(id);
