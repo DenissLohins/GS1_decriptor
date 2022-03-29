@@ -7,7 +7,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 
 @Configuration
-//@ComponentScan (basePackages = "com.decryptor")
+@ComponentScan (basePackages = "com.decryptor")
 @PropertySource("classpath:application.properties")
 public class AppConfig {
 

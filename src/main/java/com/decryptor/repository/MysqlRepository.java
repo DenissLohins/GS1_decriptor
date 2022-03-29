@@ -6,7 +6,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
 
-//@Repository
+@Repository
 public class MysqlRepository implements DataBaseInterface{
 
     private final JdbcTemplate jdbcTemplate;
