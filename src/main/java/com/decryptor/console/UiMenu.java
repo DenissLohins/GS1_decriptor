@@ -7,11 +7,11 @@ import java.util.List;
 import java.util.Scanner;
 
 @Component
-
 public class UiMenu {
+    @Autowired
     private final List<UiActions> uiActions;
 
-@Autowired
+    @Autowired
     public UiMenu(List<UiActions> uiActions) {
         this.uiActions = uiActions;
     }
