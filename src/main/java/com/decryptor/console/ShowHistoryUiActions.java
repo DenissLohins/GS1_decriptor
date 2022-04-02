@@ -3,6 +3,8 @@ package com.decryptor.console;
 import com.decryptor.core.GetHistoryService;
 import com.decryptor.dto.GetHistoryResponse;
 import com.decryptor.repository.DataBaseInterface;
+import com.decryptor.repository.HibernateRepository;
+import com.decryptor.repository.HibernateRequestHistoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
@@ -11,9 +13,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class ShowHistoryUiActions implements UiActions {
 @Autowired
-    public DataBaseInterface database;
+    public HibernateRequestHistoryRepository database;
 
-    public ShowHistoryUiActions(DataBaseInterface database) {
+    public ShowHistoryUiActions(HibernateRequestHistoryRepository database) {
         this.database = database;
     }
 

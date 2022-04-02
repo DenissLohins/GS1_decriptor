@@ -3,10 +3,11 @@ package com.decryptor.console;
 import com.decryptor.core.DecryptService;
 import com.decryptor.dto.DecryptRequest;
 import com.decryptor.repository.DataBaseInterface;
+import com.decryptor.repository.HibernateRepository;
+import com.decryptor.repository.HibernateRequestHistoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
-import com.decryptor.repository.ArrayListDataBase;
 import com.decryptor.repository.PrefixDatabase;
 
 import java.util.Scanner;
@@ -14,9 +15,9 @@ import java.util.Scanner;
 @Component
 public class DecryptUiActions implements UiActions {
 @Autowired
-    public DataBaseInterface database;
+    public HibernateRequestHistoryRepository database;
 @Autowired
-    public DecryptUiActions(DataBaseInterface database) {
+    public DecryptUiActions(HibernateRequestHistoryRepository database) {
         this.database = database;
     }
 

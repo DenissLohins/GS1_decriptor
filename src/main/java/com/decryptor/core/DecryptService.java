@@ -2,6 +2,7 @@ package com.decryptor.core;
 
 import com.decryptor.dto.DecryptRequest;
 import com.decryptor.repository.DataBaseInterface;
+import com.decryptor.repository.HibernateRepository;
 import org.springframework.stereotype.Component;
 import com.decryptor.repository.KnownGTINNames;
 import com.decryptor.repository.PrefixDatabase;
@@ -11,11 +12,11 @@ import java.util.ArrayList;
 public class  DecryptService {
     PrefixDatabase prefixDatabase;
     ArrayList<String> usedPrefix = new ArrayList<String>();
-    private DataBaseInterface database;
+    private HibernateRepository database;
     private final KnownGTINNames gtinNames = new KnownGTINNames();
 
 
-    public DecryptService(PrefixDatabase prefixDatabase, DataBaseInterface database) {
+    public DecryptService(PrefixDatabase prefixDatabase, HibernateRepository database) {
         this.prefixDatabase = prefixDatabase;
         this.database = database;
     }
