@@ -2,30 +2,24 @@ package com.decryptor.console;
 
 import com.decryptor.core.DecryptService;
 import com.decryptor.dto.DecryptRequest;
-import com.decryptor.repository.DataBaseInterface;
-import com.decryptor.repository.HibernateRepository;
-import com.decryptor.repository.HibernateRequestHistoryRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
-import com.decryptor.repository.PrefixDatabase;
 
 import java.util.Scanner;
 @Order(1)
 @Component
+@AllArgsConstructor
 public class DecryptUiActions implements UiActions {
 @Autowired
-    public HibernateRequestHistoryRepository database;
-@Autowired
-    public DecryptUiActions(HibernateRequestHistoryRepository database) {
-        this.database = database;
-    }
+    private final DecryptService decryptService;
+
 
     @Override
     public void execute() {
-        DecryptService service = new DecryptService(new PrefixDatabase(), database);
         DecryptRequest request = new DecryptRequest(getInput());
-        service.execute(request);
+        decryptService.execute(request);
     }
 
     private String getInput() {

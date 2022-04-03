@@ -1,14 +1,18 @@
 package com.decryptor.repository;
 
-import com.decryptor.domain.RequestHistory;
+import com.decryptor.domain.RequestEntity;
 import com.decryptor.dto.DecryptResponse;
-import com.decryptor.dto.GetHistoryResponse;
+import com.decryptor.dto.RequestDTO;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
+
+import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class HibernateRequestHistoryRepository implements HibernateRepository{
+@Transactional
+public class HibernateRequestHistoryRepository implements HibernateRepository {
 
     private final SessionFactory sessionFactory;
 
@@ -18,20 +22,19 @@ public class HibernateRequestHistoryRepository implements HibernateRepository{
 
 
     @Override
-    public DecryptResponse add(String decryptRequest) {
+    public RequestEntity add(RequestEntity decryptRequest) {
         sessionFactory.getCurrentSession().save(decryptRequest);
-        return new DecryptResponse(decryptRequest);
+        return decryptRequest;
     }
 
     @Override
-    public GetHistoryResponse getHistory() {
-//        return (GetHistoryResponse) sessionFactory.getCurrentSession().createCriteria(RequestHistory.class).list();
-        return (GetHistoryResponse) sessionFactory.getCurrentSession().createQuery("SELECT * FROM Decryptor.RequestHistory").getResultList();
+    public List<RequestDTO> getHistory() {
+        return sessionFactory.getCurrentSession().createQuery("SELECT r FROM request r").getResultList();
     }
 
     @Override
-    public Optional<RequestHistory> findById(Integer id) {
-        var record = sessionFactory.getCurrentSession().get(RequestHistory.class, id);
-        return Optional.empty();
+    public Optional<RequestEntity> findById(Integer id) {
+        var record = sessionFactory.getCurrentSession().get(RequestEntity.class, id);
+        return Optional.ofNullable(record);
     }
 }

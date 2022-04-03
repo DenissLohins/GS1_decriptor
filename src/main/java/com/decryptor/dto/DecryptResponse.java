@@ -1,31 +1,22 @@
 package com.decryptor.dto;
 
+import com.decryptor.core.Validation.CoreError;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.util.Objects;
+import java.util.List;
+
 @Data
+@NoArgsConstructor
 public class DecryptResponse {
 
-    private final String response;
 
-    public DecryptResponse(String response) {
-        this.response = response;
-    }
+    private Integer createdToDoId;
+    private List<CoreError> errors;
+    private String request;
 
-    public String getResponse() {
-        return response;
-    }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        DecryptResponse that = (DecryptResponse) o;
-        return Objects.equals(response, that.response);
-    }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(response);
-    }
+
+
 }

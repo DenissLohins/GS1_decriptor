@@ -1,33 +1,45 @@
 package com.decryptor.core;
 
+import com.decryptor.core.Validation.ValidationService;
+import com.decryptor.domain.RequestEntity;
 import com.decryptor.dto.DecryptRequest;
-import com.decryptor.repository.DataBaseInterface;
-import com.decryptor.repository.HibernateRepository;
+import com.decryptor.dto.DecryptResponse;
+import com.decryptor.repository.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import com.decryptor.repository.KnownGTINNames;
-import com.decryptor.repository.PrefixDatabase;
 
 import java.util.ArrayList;
+
 @Component
-public class  DecryptService {
+public class DecryptService {
     PrefixDatabase prefixDatabase;
     ArrayList<String> usedPrefix = new ArrayList<String>();
+    @Autowired
     private HibernateRepository database;
+    @Autowired
     private final KnownGTINNames gtinNames = new KnownGTINNames();
+    @Autowired
+    private ValidationService validationService;
+    private GetCurrentDateAndTime getCurrentDateAndTime = new GetCurrentDateAndTime();
 
 
-    public DecryptService(PrefixDatabase prefixDatabase, HibernateRepository database) {
-        this.prefixDatabase = prefixDatabase;
-        this.database = database;
-    }
-
-    public void execute(DecryptRequest request){
-//        ValidationService validationService = new ValidationService() //ToDo
+    public void execute(DecryptRequest request) {
         String output = "";
         int position = 0;
         int finalPosition = 0;
         String input = request.getRequestString();
-        database.add(input);
+        var requestEntity = new RequestEntity();
+        requestEntity.setRequest(input);
+        requestEntity.setDate(getCurrentDateAndTime.getDate());
+        requestEntity.setTime(getCurrentDateAndTime.getTime());
+        database.add(requestEntity);
+//        var validationResult = validationService.validate(request);
+//        if (!validationResult.isEmpty()) {
+//            System.out.println("Validation failed, errors: " + validationResult);
+//            var response = new DecryptResponse();
+//            response.setErrors(validationResult);
+//            System.out.println(response);
+//        }
         var inputChars = input.toCharArray();
         if (inputChars[position] == ']' && inputChars[position + 1] == '2') {
             position = position + 2;
@@ -41,7 +53,7 @@ public class  DecryptService {
                 String codeName = prefixDatabase.getName(prefix);
                 int length = prefixDatabase.find(prefix);
                 output = output + codeName;
-                if (codeName == "GTIN: "){
+                if (codeName == "GTIN: ") {
                     output = output + "(" + fillProductNameByGTIN(position, inputChars) + ") ";
                 }
                 if (length < 0) {
@@ -61,7 +73,6 @@ public class  DecryptService {
         } else {
             System.err.println("Wrong input!");
         }
-
         System.out.println(output);
     }
 

@@ -1,9 +1,12 @@
 package com.decryptor.domain;
 
-import javax.persistence.*;
+import lombok.Data;
 
+import javax.persistence.*;
+@Data
+@Entity (name = "request")
 @Table (name = "RequestHistory")
-public class RequestHistory {
+public class RequestEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")

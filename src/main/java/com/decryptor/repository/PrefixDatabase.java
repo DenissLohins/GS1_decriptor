@@ -1,10 +1,14 @@
 package com.decryptor.repository;
 
+import lombok.Data;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
 import java.util.Map;
 @Component
+@Data
+@Repository
 public class PrefixDatabase {
 
     private static final Map<String, Integer> dataBaseLength = new HashMap<>(){{
