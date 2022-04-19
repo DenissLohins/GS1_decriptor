@@ -1,6 +1,7 @@
 package com.decryptor.domain;
 
 import lombok.Data;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 @Data
@@ -20,4 +21,8 @@ public class RequestEntity {
 
     @Column (name = "request")
     private String request;
+
+    @Column (name = "productID")
+    @Nullable
+    private Integer productID;
 }

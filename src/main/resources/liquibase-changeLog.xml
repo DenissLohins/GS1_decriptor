@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
+
+
+    <changeSet id="create.table.GTIN" author="deniss.lohins">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="GTIN"/>
+            </not>
+        </preConditions>
+        <createTable tableName="GTIN">
+            <column name="ID" type="INT" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="GTIN" type="VARCHAR(15)"/>
+            <column name="name" type="VARCHAR(254)"/>
+        </createTable>
+    </changeSet>
+
+
+    <changeSet id="create.table.RequestHistory" author="deniss.lohins">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="RequestHistory"/>
+            </not>
+        </preConditions>
+        <createTable tableName="RequestHistory">
+            <column name="ID" type="INT" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="date" type="VARCHAR(50)"/>
+            <column name="time" type="VARCHAR(50)"/>
+            <column name="request" type="VARCHAR(200)"/>
+            <column name="productID" type="INT"/>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="RequestHistory"
+                                 constraintName="fk_request_product_id"
+                                 baseColumnNames="productID"
+                                 referencedTableName="GTIN"
+                                 referencedColumnNames="ID"/>
+    </changeSet>
+
+<!--    <changeSet id="insert.default.users" author="ruslan" context="test">-->
+<!--        <insert tableName="users">-->
+<!--            <column name="username" value="admin"/>-->
+<!--        </insert>-->
+<!--    </changeSet>-->
+
+</databaseChangeLog>

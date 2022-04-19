@@ -1,6 +1,7 @@
 package com.decryptor.core;
 
 import com.decryptor.core.Validation.ValidationService;
+import com.decryptor.domain.GTINEntity;
 import com.decryptor.domain.RequestEntity;
 import com.decryptor.dto.DecryptRequest;
 import com.decryptor.dto.DecryptResponse;
@@ -12,12 +13,20 @@ import java.util.ArrayList;
 
 @Component
 public class DecryptService {
-    PrefixDatabase prefixDatabase;
-    ArrayList<String> usedPrefix = new ArrayList<String>();
+
+    PrefixDatabase prefixDatabase = new PrefixDatabase();
+
+    private GTINEntity gtinEntity;
+
     @Autowired
-    private HibernateRepository database;
+    private HibernateRepository<RequestEntity> database;
+
     @Autowired
-    private final KnownGTINNames gtinNames = new KnownGTINNames();
+    private HibernateGTINRepository gtinNames;
+
+//    @Autowired
+//    private final KnownGTINNames gtinNames = new KnownGTINNames();
+
     @Autowired
     private ValidationService validationService;
     private GetCurrentDateAndTime getCurrentDateAndTime = new GetCurrentDateAndTime();
@@ -25,6 +34,7 @@ public class DecryptService {
 
     public void execute(DecryptRequest request) {
         String output = "";
+        ArrayList<String> usedPrefix = new ArrayList<String>();
         int position = 0;
         int finalPosition = 0;
         String input = request.getRequestString();
@@ -33,13 +43,16 @@ public class DecryptService {
         requestEntity.setDate(getCurrentDateAndTime.getDate());
         requestEntity.setTime(getCurrentDateAndTime.getTime());
         database.add(requestEntity);
-//        var validationResult = validationService.validate(request);
-//        if (!validationResult.isEmpty()) {
-//            System.out.println("Validation failed, errors: " + validationResult);
-//            var response = new DecryptResponse();
-//            response.setErrors(validationResult);
-//            System.out.println(response);
-//        }
+
+
+
+        var validationResult = validationService.validate(request);
+        if (!validationResult.isEmpty()) {
+            System.out.println("Validation failed, errors: " + validationResult);
+            var response = new DecryptResponse();
+            response.setErrors(validationResult);
+            System.out.println(response);
+        }
         var inputChars = input.toCharArray();
         if (inputChars[position] == ']' && inputChars[position + 1] == '2') {
             position = position + 2;
@@ -50,14 +63,19 @@ public class DecryptService {
                 prefix = prefix + inputChars[position + 1];
                 usedPrefix.add(prefix);
                 position = position + 2;
-                String codeName = prefixDatabase.getName(prefix);
-                int length = prefixDatabase.find(prefix);
+                var codeName = prefixDatabase.getName(prefix);
+                Integer length = prefixDatabase.find(prefix);
                 output = output + codeName;
                 if (codeName == "GTIN: ") {
-                    output = output + "(" + fillProductNameByGTIN(position, inputChars) + ") ";
+                    var gtinNumber = getGTINFromString(position, inputChars);
+                    if(gtinNames.getByGTIN(gtinNumber).isPresent()){
+                        gtinEntity = gtinNames.getByGTIN(gtinNumber).get();
+                        output = output + "(" + gtinEntity.getName() + ") ";
+                        requestEntity.setProductID(gtinEntity.getId());
+                    }
                 }
                 if (length < 0) {
-                    int temporaryLength = -length;
+                    var temporaryLength = -length;
                     finalPosition = getFinalPosition(prefixDatabase, usedPrefix, position, finalPosition, inputChars, temporaryLength);
                     output = output + fillFieldData(position, inputChars, finalPosition);
                     position = finalPosition;
@@ -70,7 +88,9 @@ public class DecryptService {
                     }
                 }
             }
+            database.update(requestEntity);
         } else {
+            database.update(requestEntity);
             System.err.println("Wrong input!");
         }
         System.out.println(output);
@@ -102,12 +122,11 @@ public class DecryptService {
         return output;
     }
 
-    private String fillProductNameByGTIN(int position, char[] inputChars) {
+    private String getGTINFromString(int position, char[] inputChars) {
         String gtin = "";
         for (int i = position; i < position + 14; i++) {
             gtin = gtin + inputChars[i];
         }
-        String productName = gtinNames.getNameByGTIN(gtin);
-        return productName;
+        return gtin;
     }
 }

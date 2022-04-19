@@ -1,5 +1,6 @@
 package com.decryptor.core;
 
+import com.decryptor.domain.RequestEntity;
 import com.decryptor.dto.GetHistoryResponse;
 import com.decryptor.repository.HibernateRepository;
 import lombok.AllArgsConstructor;
@@ -11,10 +12,10 @@ import org.springframework.stereotype.Component;
 public class GetHistoryService {
 
     @Autowired
-    private final HibernateRepository database;
+    private final HibernateRepository<RequestEntity> database;
 
     public GetHistoryResponse findAll() {
-        var requests = database.getHistory().stream()
+        var requests = database.getAll().stream()
                 .toList();
         return new GetHistoryResponse(requests);
     }

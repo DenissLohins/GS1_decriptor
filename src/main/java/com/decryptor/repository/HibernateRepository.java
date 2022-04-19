@@ -1,16 +1,16 @@
 package com.decryptor.repository;
 
-import com.decryptor.domain.RequestEntity;
-import com.decryptor.dto.RequestDTO;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface HibernateRepository {
+public interface HibernateRepository<T> {
 
-    RequestEntity add (RequestEntity decryptRequest);
+    T add (T entity);
 
-    List<RequestDTO> getHistory ();
+    T update (T entity);
 
-    Optional<RequestEntity> findById (Integer id);
+    List<T> getAll();
+
+    Optional<T> findById (Integer id);
 }

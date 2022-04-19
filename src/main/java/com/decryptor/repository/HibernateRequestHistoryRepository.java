@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @Repository
 @Transactional
-public class HibernateRequestHistoryRepository implements HibernateRepository {
+public class HibernateRequestHistoryRepository implements HibernateRepository<RequestEntity> {
 
     private final SessionFactory sessionFactory;
 
@@ -28,7 +28,14 @@ public class HibernateRequestHistoryRepository implements HibernateRepository {
     }
 
     @Override
-    public List<RequestDTO> getHistory() {
+    public RequestEntity update(RequestEntity entity) {
+        sessionFactory.getCurrentSession().update(entity);
+        return entity;
+    }
+
+
+    @Override
+    public List<RequestEntity> getAll() {
         return sessionFactory.getCurrentSession().createQuery("SELECT r FROM request r").getResultList();
     }
 
