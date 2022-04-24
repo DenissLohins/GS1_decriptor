@@ -2,8 +2,8 @@ package com.decryptor.domain;
 
 import lombok.Data;
 import org.springframework.lang.Nullable;
-
 import javax.persistence.*;
+
 @Data
 @Entity (name = "request")
 @Table (name = "RequestHistory")

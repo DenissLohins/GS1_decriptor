@@ -2,7 +2,6 @@ package com.decryptor.domain;
 
 
 import lombok.Data;
-
 import javax.persistence.*;
 @Data
 @Entity (name ="GTIN")

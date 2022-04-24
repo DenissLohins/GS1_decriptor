@@ -32,7 +32,7 @@ public class DecryptService {
     private GetCurrentDateAndTime getCurrentDateAndTime = new GetCurrentDateAndTime();
 
 
-    public void execute(DecryptRequest request) {
+    public DecryptResponse execute(DecryptRequest request) {
         String output = "";
         ArrayList<String> usedPrefix = new ArrayList<String>();
         int position = 0;
@@ -51,7 +51,7 @@ public class DecryptService {
             System.out.println("Validation failed, errors: " + validationResult);
             var response = new DecryptResponse();
             response.setErrors(validationResult);
-            System.out.println(response);
+            return response;
         }
         var inputChars = input.toCharArray();
         if (inputChars[position] == ']' && inputChars[position + 1] == '2') {
@@ -93,7 +93,11 @@ public class DecryptService {
             database.update(requestEntity);
             System.err.println("Wrong input!");
         }
-        System.out.println(output);
+        var response = new DecryptResponse();
+        response.setID(requestEntity.getId());
+        response.setRequest(requestEntity.getRequest());
+        response.setDecryptedInformation(output);
+        return response;
     }
 
     private int getFinalPosition(PrefixDatabase prefixDatabase, ArrayList<String> usedPrefix, int position, int finalPosition, char[] inputChars, int temporaryLength) {

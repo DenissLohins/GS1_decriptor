@@ -16,7 +16,7 @@ public class GetByIDService {
     public GetByIDResponse getByID(Integer id) {
         var response = database.findById(id);
         if (response.isPresent()) {
-            return new GetByIDResponse((RequestEntity) response.get());
+            return new GetByIDResponse(response.get());
         } else {
             new IllegalArgumentException("Request with id " + id + " is not found.");
             return new GetByIDResponse();

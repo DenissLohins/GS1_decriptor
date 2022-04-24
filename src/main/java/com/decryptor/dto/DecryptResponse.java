@@ -11,9 +11,11 @@ import java.util.List;
 public class DecryptResponse {
 
 
-    private Integer createdToDoId;
+    private Integer ID;
     private List<CoreError> errors;
     private String request;
+    private String decryptedInformation;
+
 
 
 
