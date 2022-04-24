@@ -23,7 +23,7 @@ public class HibernateGTINRepository implements HibernateRepository<GTINEntity> 
 
 
     @Override
-    public GTINEntity add(GTINEntity entity) {
+    public GTINEntity save(GTINEntity entity) {
         sessionFactory.getCurrentSession().save(entity);
         return entity;
     }
@@ -35,7 +35,7 @@ public class HibernateGTINRepository implements HibernateRepository<GTINEntity> 
 
     @Override
     public List<GTINEntity> getAll() {
-        return sessionFactory.openSession().createQuery("SELECT r FROM GTIN r").getResultList();
+        return sessionFactory.openSession().createNativeQuery("SELECT * FROM Decryptor.GTIN").getResultList();
     }
 
     @Override
@@ -45,15 +45,13 @@ public class HibernateGTINRepository implements HibernateRepository<GTINEntity> 
     }
 
     public Optional <GTINEntity> getByGTIN(String gtin){
-
-        String query = "SELECT * FROM GTIN WHERE GTIN = " + gtin.toString();
-        var gtinEntity = (GTINEntity) sessionFactory.openSession().createQuery(query);
-        var response = Optional.ofNullable(gtinEntity);
+        var interimResponse = sessionFactory.openSession().get(GTINEntity.class, gtin);
+        var response = Optional.ofNullable(interimResponse);
         return response;
     }
 
     public String getIDByGTIN(String gtin){
-        return sessionFactory.getCurrentSession().createQuery("SELECT i FROM GTIN where GTIN = " + gtin).toString();
+        return sessionFactory.openSession().createQuery("SELECT i FROM GTIN where GTIN = " + gtin).toString();
     }
 
 }

@@ -6,7 +6,7 @@ import java.util.Optional;
 
 public interface HibernateRepository<T> {
 
-    T add (T entity);
+    T save(T entity);
 
     T update (T entity);
 

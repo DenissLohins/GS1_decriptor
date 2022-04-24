@@ -22,7 +22,7 @@ public class HibernateRequestHistoryRepository implements HibernateRepository<Re
 
 
     @Override
-    public RequestEntity add(RequestEntity requestEntity) {
+    public RequestEntity save(RequestEntity requestEntity) {
         sessionFactory.openSession().save(requestEntity);
         return requestEntity;
     }
@@ -36,7 +36,7 @@ public class HibernateRequestHistoryRepository implements HibernateRepository<Re
 
     @Override
     public List<RequestEntity> getAll() {
-        return sessionFactory.openSession().createNativeQuery("SELECT * FROM Decryptor.RequestHistory", RequestEntity.class).getResultList();
+        return sessionFactory.openSession().createNativeQuery("SELECT * FROM request_history", RequestEntity.class).getResultList();
     }
 
     @Override

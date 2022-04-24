@@ -42,10 +42,7 @@ public class DecryptService {
         requestEntity.setRequest(input);
         requestEntity.setDate(getCurrentDateAndTime.getDate());
         requestEntity.setTime(getCurrentDateAndTime.getTime());
-        database.add(requestEntity);
-
-
-
+        database.save(requestEntity);
         var validationResult = validationService.validate(request);
         if (!validationResult.isEmpty()) {
             System.out.println("Validation failed, errors: " + validationResult);
@@ -71,7 +68,7 @@ public class DecryptService {
                     if(gtinNames.getByGTIN(gtinNumber).isPresent()){
                         gtinEntity = gtinNames.getByGTIN(gtinNumber).get();
                         output = output + "(" + gtinEntity.getName() + ") ";
-                        requestEntity.setProductID(gtinEntity.getId());
+                        requestEntity.setProductID(gtinEntity.getGtin());
                     }
                 }
                 if (length < 0) {

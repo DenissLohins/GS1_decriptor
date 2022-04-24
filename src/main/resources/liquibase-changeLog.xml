@@ -9,14 +9,13 @@
     <changeSet id="create.table.GTIN" author="deniss.lohins">
         <preConditions onFail="MARK_RAN">
             <not>
-                <tableExists tableName="GTIN"/>
+                <tableExists tableName="gtin"/>
             </not>
         </preConditions>
-        <createTable tableName="GTIN">
-            <column name="ID" type="INT" autoIncrement="true">
+        <createTable tableName="gtin">
+            <column name="gtin" type="VARCHAR(15)">
                 <constraints primaryKey="true"/>
             </column>
-            <column name="GTIN" type="VARCHAR(15)"/>
             <column name="name" type="VARCHAR(254)"/>
         </createTable>
     </changeSet>
@@ -25,23 +24,23 @@
     <changeSet id="create.table.RequestHistory" author="deniss.lohins">
         <preConditions onFail="MARK_RAN">
             <not>
-                <tableExists tableName="RequestHistory"/>
+                <tableExists tableName="request_history"/>
             </not>
         </preConditions>
-        <createTable tableName="RequestHistory">
-            <column name="ID" type="INT" autoIncrement="true">
+        <createTable tableName="request_history">
+            <column name="id" type="INT" autoIncrement="true">
                 <constraints primaryKey="true"/>
             </column>
-            <column name="date" type="VARCHAR(50)"/>
-            <column name="time" type="VARCHAR(50)"/>
+            <column name="date" type="VARCHAR(255)"/>
+            <column name="productid" type="VARCHAR(255)"/>
             <column name="request" type="VARCHAR(200)"/>
-            <column name="productID" type="INT"/>
+            <column name="time" type="VARCHAR(255)"/>
         </createTable>
         <addForeignKeyConstraint baseTableName="RequestHistory"
                                  constraintName="fk_request_product_id"
                                  baseColumnNames="productID"
-                                 referencedTableName="GTIN"
-                                 referencedColumnNames="ID"/>
+                                 referencedTableName="gtin"
+                                 referencedColumnNames="gtin"/>
     </changeSet>
 
 <!--    <changeSet id="insert.default.users" author="ruslan" context="test">-->
