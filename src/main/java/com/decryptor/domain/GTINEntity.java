@@ -6,11 +6,11 @@ import lombok.Data;
 import javax.persistence.*;
 @Data
 @Entity (name ="GTIN")
-@Table(name = "GTIN")
+@Table(name = "gtin")
 public class GTINEntity {
 
     @Id
-    @Column(name = "GTIN")
+    @Column(name = "gtin")
     private String gtin;
 
     @NotNull

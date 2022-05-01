@@ -25,8 +25,6 @@ public class DecryptController  {
     public GetByIDResponse getByID(@PathVariable("id") Integer id) { return getByIDService.getByID(id);}
 
     @PostMapping("/decrypt")
-    public DecryptResponse decrypt(@RequestBody String requestString) {
-        var request = new DecryptRequest();
-        request.setRequestString(requestString);
-        return decryptService.execute(request);}
+    public DecryptResponse decrypt(@RequestBody DecryptRequest decryptRequest) {
+        return decryptService.execute(decryptRequest);}
 }

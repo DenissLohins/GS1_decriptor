@@ -19,7 +19,7 @@ public class DecryptService {
     private GTINEntity gtinEntity;
 
     @Autowired
-    private HibernateRepository<RequestEntity> database;
+    private HibernateRequestHistoryRepository database;
 
     @Autowired
     private HibernateGTINRepository gtinNames;
@@ -65,10 +65,10 @@ public class DecryptService {
                 output = output + codeName;
                 if (codeName == "GTIN: ") {
                     var gtinNumber = getGTINFromString(position, inputChars);
-                    if(gtinNames.getByGTIN(gtinNumber).isPresent()){
-                        gtinEntity = gtinNames.getByGTIN(gtinNumber).get();
-                        output = output + "(" + gtinEntity.getName() + ") ";
-                        requestEntity.setProductID(gtinEntity.getGtin());
+                    var gtinEntity = gtinNames.getByGTIN(gtinNumber);
+                    if(gtinEntity.isPresent()){
+                        output = output + "(" + gtinEntity.get().getName() + ") ";
+                        requestEntity.setProductID(gtinEntity.get().getGtin());
                     }
                 }
                 if (length < 0) {

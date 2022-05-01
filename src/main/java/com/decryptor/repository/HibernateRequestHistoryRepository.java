@@ -23,25 +23,25 @@ public class HibernateRequestHistoryRepository implements HibernateRepository<Re
 
     @Override
     public RequestEntity save(RequestEntity requestEntity) {
-        sessionFactory.openSession().save(requestEntity);
+        sessionFactory.getCurrentSession().save(requestEntity);
         return requestEntity;
     }
 
     @Override
     public RequestEntity update(RequestEntity requestEntity) {
-        sessionFactory.openSession().update(requestEntity);
+        sessionFactory.getCurrentSession().update(requestEntity);
         return requestEntity;
     }
 
 
     @Override
     public List<RequestEntity> getAll() {
-        return sessionFactory.openSession().createNativeQuery("SELECT * FROM request_history", RequestEntity.class).getResultList();
+        return sessionFactory.getCurrentSession().createNativeQuery("SELECT * FROM request_history", RequestEntity.class).getResultList();
     }
 
     @Override
     public Optional<RequestEntity> findById(Integer id) {
-        var record = sessionFactory.openSession().get(RequestEntity.class, id);
+        var record = sessionFactory.getCurrentSession().get(RequestEntity.class, id);
         return Optional.ofNullable(record);
     }
 }

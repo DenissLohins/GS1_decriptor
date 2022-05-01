@@ -7,7 +7,7 @@ import javax.persistence.*;
 
 @Data
 @Entity (name = "request")
-@Table (name = "RequestHistory")
+@Table (name = "request_history")
 public class RequestEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,7 +28,7 @@ public class RequestEntity {
     private String request;
 
     @Order(5)
-    @Column (name = "productID")
+    @Column (name = "product_id")
     @Nullable
     private String productID;
 }

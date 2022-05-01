@@ -32,13 +32,18 @@
                 <constraints primaryKey="true"/>
             </column>
             <column name="date" type="VARCHAR(255)"/>
-            <column name="productid" type="VARCHAR(255)"/>
+            <column name="product_id" type="VARCHAR(255)"/>
             <column name="request" type="VARCHAR(200)"/>
             <column name="time" type="VARCHAR(255)"/>
         </createTable>
-        <addForeignKeyConstraint baseTableName="RequestHistory"
+<!--        <addForeignKeyConstraint baseTableName="request_history"-->
+<!--                                 baseColumnNames="product_id"-->
+<!--                                 constraintName="fk_request_gtin_id"-->
+<!--                                 referencedColumnNames="gtin"-->
+<!--                                 referencedTableName="gtin"/>-->
+        <addForeignKeyConstraint baseTableName="request_history"
                                  constraintName="fk_request_product_id"
-                                 baseColumnNames="productID"
+                                 baseColumnNames="product_id"
                                  referencedTableName="gtin"
                                  referencedColumnNames="gtin"/>
     </changeSet>

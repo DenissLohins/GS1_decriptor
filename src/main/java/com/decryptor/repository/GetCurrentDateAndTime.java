@@ -16,7 +16,7 @@ public class GetCurrentDateAndTime {
     }
 
     public String getTime(){
-        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss:SSSSS");
         LocalTime now = LocalTime.now();
         return timeFormatter.format(now);
     }
