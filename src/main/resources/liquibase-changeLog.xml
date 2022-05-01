@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
+
+
+    <changeSet id="create.table.GTIN" author="deniss.lohins">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="gtin"/>
+            </not>
+        </preConditions>
+        <createTable tableName="gtin">
+            <column name="gtin" type="VARCHAR(15)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="VARCHAR(254)"/>
+        </createTable>
+    </changeSet>
+
+
+    <changeSet id="create.table.RequestHistory" author="deniss.lohins">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="request_history"/>
+            </not>
+        </preConditions>
+        <createTable tableName="request_history">
+            <column name="id" type="INT" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="date" type="VARCHAR(255)"/>
+            <column name="product_id" type="VARCHAR(255)"/>
+            <column name="request" type="VARCHAR(200)"/>
+            <column name="time" type="VARCHAR(255)"/>
+        </createTable>
+<!--        <addForeignKeyConstraint baseTableName="request_history"-->
+<!--                                 baseColumnNames="product_id"-->
+<!--                                 constraintName="fk_request_gtin_id"-->
+<!--                                 referencedColumnNames="gtin"-->
+<!--                                 referencedTableName="gtin"/>-->
+        <addForeignKeyConstraint baseTableName="request_history"
+                                 constraintName="fk_request_product_id"
+                                 baseColumnNames="product_id"
+                                 referencedTableName="gtin"
+                                 referencedColumnNames="gtin"/>
+    </changeSet>
+
+<!--    <changeSet id="insert.default.users" author="ruslan" context="test">-->
+<!--        <insert tableName="users">-->
+<!--            <column name="username" value="admin"/>-->
+<!--        </insert>-->
+<!--    </changeSet>-->
+
+</databaseChangeLog>

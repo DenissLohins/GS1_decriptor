@@ -1,18 +1,15 @@
 package com.decryptor.dto;
 
-
 import com.decryptor.domain.RequestEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class GetHistoryResponse {
+public class GetByIDResponse {
 
-    private List<RequestEntity> requests;
+    private RequestEntity requestDTO;
 
 }
