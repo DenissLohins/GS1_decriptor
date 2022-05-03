@@ -1,22 +1,23 @@
-package com.decryptor.core;
+package com.decryptor.core.gtinList;
 
-import com.decryptor.domain.RequestEntity;
-import com.decryptor.dto.GetHistoryResponse;
+import com.decryptor.domain.GTINEntity;
+import com.decryptor.dto.GetAllGtinResponse;
 import com.decryptor.repository.HibernateRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-@Component
 @AllArgsConstructor
-public class GetHistoryService {
+@Component
+public class GetAll {
 
     @Autowired
-    private final HibernateRepository<RequestEntity> database;
+    private final HibernateRepository<GTINEntity> database;
 
-    public GetHistoryResponse findAll() {
+
+    public GetAllGtinResponse findAll() {
         var requests = database.getAll().stream()
                 .toList();
-        return new GetHistoryResponse(requests);
+        return new GetAllGtinResponse(requests);
     }
 }

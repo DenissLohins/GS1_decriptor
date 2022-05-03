@@ -1,4 +1,4 @@
-package com.decryptor.core;
+package com.decryptor.core.requests;
 
 import com.decryptor.domain.RequestEntity;
 import com.decryptor.dto.GetByIDResponse;

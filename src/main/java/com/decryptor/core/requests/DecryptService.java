@@ -1,6 +1,6 @@
-package com.decryptor.core;
+package com.decryptor.core.requests;
 
-import com.decryptor.core.Validation.ValidationService;
+import com.decryptor.core.requests.Validation.RequestValidationService;
 import com.decryptor.domain.GTINEntity;
 import com.decryptor.domain.RequestEntity;
 import com.decryptor.dto.DecryptRequest;
@@ -24,11 +24,9 @@ public class DecryptService {
     @Autowired
     private HibernateGTINRepository gtinNames;
 
-//    @Autowired
-//    private final KnownGTINNames gtinNames = new KnownGTINNames();
 
     @Autowired
-    private ValidationService validationService;
+    private RequestValidationService requestValidationService;
     private GetCurrentDateAndTime getCurrentDateAndTime = new GetCurrentDateAndTime();
 
 
@@ -43,7 +41,7 @@ public class DecryptService {
         requestEntity.setDate(getCurrentDateAndTime.getDate());
         requestEntity.setTime(getCurrentDateAndTime.getTime());
         database.save(requestEntity);
-        var validationResult = validationService.validate(request);
+        var validationResult = requestValidationService.validate(request);
         if (!validationResult.isEmpty()) {
             System.out.println("Validation failed, errors: " + validationResult);
             var response = new DecryptResponse();

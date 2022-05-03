@@ -1,8 +1,8 @@
 package com.decryptor.controller;
 
-import com.decryptor.core.DecryptService;
-import com.decryptor.core.GetByIDService;
-import com.decryptor.core.GetHistoryService;
+import com.decryptor.core.requests.DecryptService;
+import com.decryptor.core.requests.GetByIDService;
+import com.decryptor.core.requests.GetHistoryService;
 import com.decryptor.dto.DecryptRequest;
 import com.decryptor.dto.DecryptResponse;
 import com.decryptor.dto.GetByIDResponse;

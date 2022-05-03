@@ -1,10 +1,10 @@
-package com.decryptor.core.Validation;
+package com.decryptor.core.requests.Validation;
 
 import com.decryptor.dto.DecryptRequest;
 import org.springframework.stereotype.Component;
 
 @Component
-public class LengthValidationRule implements ValidatonRule {
+public class LengthValidationRule implements RequestValidationRule {
 
     private static final int minimalLength = 6;
     public static final int maximalLength = 71;

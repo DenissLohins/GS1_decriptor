@@ -1,6 +1,4 @@
-package com.decryptor.core.Validation;
-
-import org.springframework.stereotype.Component;
+package com.decryptor.core.requests.Validation;
 
 public class ValidationException extends RuntimeException{
 

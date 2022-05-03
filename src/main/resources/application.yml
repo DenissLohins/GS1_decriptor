@@ -14,3 +14,5 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
   liquibase:
     change-log: liquibase-changeLog.xml
+server:
+  port: 8081

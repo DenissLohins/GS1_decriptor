@@ -1,12 +1,12 @@
-package com.decryptor.core.Validation;
+package com.decryptor.core.gtinList.validation;
 
 
 
-public class CoreError {
+public class CoreGtinError  {
 
     private final String message;
 
-    public CoreError(String message) {
+    public CoreGtinError(String message) {
         this.message = message;
     }
 

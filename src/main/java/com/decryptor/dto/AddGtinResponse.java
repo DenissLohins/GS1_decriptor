@@ -8,17 +8,9 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
-public class DecryptResponse {
+public class AddGtinResponse {
 
-
-    private Integer ID;
+    private String gtin;
+    private String name;
     private List<CoreRequestError> errors;
-    private String request;
-    private String decryptedInformation;
-
-
-
-
-
-
 }

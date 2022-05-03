@@ -1,4 +1,4 @@
-package com.decryptor.core.Validation;
+package com.decryptor.core.requests.Validation;
 
 import com.decryptor.dto.DecryptRequest;
 import org.springframework.stereotype.Component;
@@ -8,18 +8,18 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 @Component
-public class ValidationService {
+public class RequestValidationService {
 
-    private final List<ValidatonRule> validationRules;
+    private final List<RequestValidationRule> validationRules;
 
-    public ValidationService(List<ValidatonRule> validationRules) {
+    public RequestValidationService(List<RequestValidationRule> validationRules) {
         this.validationRules = validationRules;
     }
 
-    public List<CoreError> validate(DecryptRequest request) {
-        List<CoreError> errors = new ArrayList<>();
+    public List<CoreRequestError> validate(DecryptRequest request) {
+        List<CoreRequestError> errors = new ArrayList<>();
         if (request == null) {
-            errors.add(new CoreError("request mut not be null"));
+            errors.add(new CoreRequestError("request mut not be null"));
             return errors;
         }
         return validationRules.stream()
@@ -28,11 +28,11 @@ public class ValidationService {
                 .collect(Collectors.toList());
     }
 
-    private CoreError mapError(ValidatonRule rule, DecryptRequest request) {
+    private CoreRequestError mapError(RequestValidationRule rule, DecryptRequest request) {
         try {
             rule.validate(request);
         } catch (ValidationException e) {
-            return new CoreError(e.getMessage());
+            return new CoreRequestError(e.getMessage());
         }
         return null;
     }

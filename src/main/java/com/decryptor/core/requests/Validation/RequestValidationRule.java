@@ -1,8 +1,8 @@
-package com.decryptor.core.Validation;
+package com.decryptor.core.requests.Validation;
 
 import com.decryptor.dto.DecryptRequest;
 
-public interface ValidatonRule {
+public interface RequestValidationRule {
 
     void validate(DecryptRequest request);
 
