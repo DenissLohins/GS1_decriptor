@@ -12,5 +12,4 @@ public interface HibernateRepository<T> {
 
     List<T> getAll();
 
-    Optional<T> findById (Integer id);
 }

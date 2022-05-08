@@ -39,7 +39,7 @@ public class HibernateRequestHistoryRepository implements HibernateRepository<Re
         return sessionFactory.getCurrentSession().createNativeQuery("SELECT * FROM request_history", RequestEntity.class).getResultList();
     }
 
-    @Override
+
     public Optional<RequestEntity> findById(Integer id) {
         var record = sessionFactory.getCurrentSession().get(RequestEntity.class, id);
         return Optional.ofNullable(record);

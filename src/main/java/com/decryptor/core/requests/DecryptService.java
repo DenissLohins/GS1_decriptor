@@ -1,7 +1,7 @@
 package com.decryptor.core.requests;
 
-import com.decryptor.core.requests.Validation.RequestValidationService;
-import com.decryptor.domain.GTINEntity;
+
+import com.decryptor.domain.ProductEntity;
 import com.decryptor.domain.RequestEntity;
 import com.decryptor.dto.DecryptRequest;
 import com.decryptor.dto.DecryptResponse;
@@ -16,7 +16,7 @@ public class DecryptService {
 
     PrefixDatabase prefixDatabase = new PrefixDatabase();
 
-    private GTINEntity gtinEntity;
+    private ProductEntity productEntity;
 
     @Autowired
     private HibernateRequestHistoryRepository database;
@@ -25,8 +25,6 @@ public class DecryptService {
     private HibernateGTINRepository gtinNames;
 
 
-    @Autowired
-    private RequestValidationService requestValidationService;
     private GetCurrentDateAndTime getCurrentDateAndTime = new GetCurrentDateAndTime();
 
 
@@ -41,13 +39,6 @@ public class DecryptService {
         requestEntity.setDate(getCurrentDateAndTime.getDate());
         requestEntity.setTime(getCurrentDateAndTime.getTime());
         database.save(requestEntity);
-        var validationResult = requestValidationService.validate(request);
-        if (!validationResult.isEmpty()) {
-            System.out.println("Validation failed, errors: " + validationResult);
-            var response = new DecryptResponse();
-            response.setErrors(validationResult);
-            return response;
-        }
         var inputChars = input.toCharArray();
         if (inputChars[position] == ']' && inputChars[position + 1] == '2') {
             position = position + 2;

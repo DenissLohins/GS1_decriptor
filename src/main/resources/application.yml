@@ -16,3 +16,12 @@ spring:
     change-log: liquibase-changeLog.xml
 server:
   port: 8081
+logging:
+  level:
+    com.javaguru: INFO
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, metrics, info, prometheus
+      base-path: /
