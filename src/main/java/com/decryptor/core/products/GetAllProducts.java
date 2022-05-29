@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class GetAllProducts {
 
-    @Autowired
     private final ProductRepository database;
 
 

@@ -11,5 +11,5 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class GetAllProductResponse {
-    private List<ProductEntity> requests;
+    private List<ProductEntity> products;
 }
