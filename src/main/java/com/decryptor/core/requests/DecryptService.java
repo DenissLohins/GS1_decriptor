@@ -1,34 +1,27 @@
-package com.decryptor.core;
+package com.decryptor.core.requests;
 
-import com.decryptor.core.Validation.ValidationService;
-import com.decryptor.domain.GTINEntity;
+
 import com.decryptor.domain.RequestEntity;
 import com.decryptor.dto.DecryptRequest;
 import com.decryptor.dto.DecryptResponse;
 import com.decryptor.repository.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-
-@Component
+@Transactional
+@Service
+@AllArgsConstructor
 public class DecryptService {
 
-    PrefixDatabase prefixDatabase = new PrefixDatabase();
+    private PrefixDatabase prefixDatabase = new PrefixDatabase();
 
-    private GTINEntity gtinEntity;
+    private RequestHistoryRepository database;
 
-    @Autowired
-    private HibernateRequestHistoryRepository database;
+    private ProductRepository productRepository;
 
-    @Autowired
-    private HibernateGTINRepository gtinNames;
 
-//    @Autowired
-//    private final KnownGTINNames gtinNames = new KnownGTINNames();
-
-    @Autowired
-    private ValidationService validationService;
     private GetCurrentDateAndTime getCurrentDateAndTime = new GetCurrentDateAndTime();
 
 
@@ -43,13 +36,6 @@ public class DecryptService {
         requestEntity.setDate(getCurrentDateAndTime.getDate());
         requestEntity.setTime(getCurrentDateAndTime.getTime());
         database.save(requestEntity);
-        var validationResult = validationService.validate(request);
-        if (!validationResult.isEmpty()) {
-            System.out.println("Validation failed, errors: " + validationResult);
-            var response = new DecryptResponse();
-            response.setErrors(validationResult);
-            return response;
-        }
         var inputChars = input.toCharArray();
         if (inputChars[position] == ']' && inputChars[position + 1] == '2') {
             position = position + 2;
@@ -65,10 +51,10 @@ public class DecryptService {
                 output = output + codeName;
                 if (codeName == "GTIN: ") {
                     var gtinNumber = getGTINFromString(position, inputChars);
-                    var gtinEntity = gtinNames.getByGTIN(gtinNumber);
-                    if(gtinEntity.isPresent()){
-                        output = output + "(" + gtinEntity.get().getName() + ") ";
-                        requestEntity.setProductID(gtinEntity.get().getGtin());
+                    var productEntityOptional = productRepository.findById(gtinNumber);
+                    if (productEntityOptional.isPresent()) {
+                        output = output + "(" + productEntityOptional.get().getName() + ") ";
+                        requestEntity.setProductID(productEntityOptional.get().getGtin());
                     }
                 }
                 if (length < 0) {
@@ -85,9 +71,9 @@ public class DecryptService {
                     }
                 }
             }
-            database.update(requestEntity);
+            database.save(requestEntity);
         } else {
-            database.update(requestEntity);
+            database.save(requestEntity);
             System.err.println("Wrong input!");
         }
         var response = new DecryptResponse();

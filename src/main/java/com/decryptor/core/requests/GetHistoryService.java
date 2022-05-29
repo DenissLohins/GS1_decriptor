@@ -1,8 +1,7 @@
-package com.decryptor.core;
+package com.decryptor.core.requests;
 
-import com.decryptor.domain.RequestEntity;
 import com.decryptor.dto.GetHistoryResponse;
-import com.decryptor.repository.HibernateRepository;
+import com.decryptor.repository.RequestHistoryRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -12,11 +11,10 @@ import org.springframework.stereotype.Component;
 public class GetHistoryService {
 
     @Autowired
-    private final HibernateRepository<RequestEntity> database;
+    private final RequestHistoryRepository database;
 
     public GetHistoryResponse findAll() {
-        var requests = database.getAll().stream()
-                .toList();
+        var requests = database.findAll();
         return new GetHistoryResponse(requests);
     }
 }

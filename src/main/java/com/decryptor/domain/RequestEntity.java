@@ -1,11 +1,15 @@
 package com.decryptor.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.core.annotation.Order;
 import org.springframework.lang.Nullable;
 import javax.persistence.*;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity (name = "request")
 @Table (name = "request_history")
 public class RequestEntity {

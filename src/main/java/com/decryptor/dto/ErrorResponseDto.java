@@ -1,15 +1,13 @@
 package com.decryptor.dto;
 
-import com.decryptor.domain.RequestEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class GetByIDResponse {
+@AllArgsConstructor
+public class ErrorResponseDto {
 
-    private RequestEntity responseEntity;
-
+    private String errorMessage;
 }

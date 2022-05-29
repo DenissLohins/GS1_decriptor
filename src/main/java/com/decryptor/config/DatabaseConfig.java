@@ -20,7 +20,7 @@ import javax.sql.DataSource;
 @EnableTransactionManagement
 public class DatabaseConfig {
 
-    @Bean
+    @Bean (name="entityManagerFactory")
     public SessionFactory sessionFactory(DataSource dataSource,
                                          @Value("${spring.jpa.hibernate.ddl-auto}") String ddl,
                                          @Value("${spring.jpa.properties.hibernate.dialect}") String dialect,
@@ -41,7 +41,7 @@ public class DatabaseConfig {
     }
 
     @Bean
-    public PlatformTransactionManager hibernateTransactionManager(SessionFactory sessionFactory) {
+    public PlatformTransactionManager transactionManager(SessionFactory sessionFactory) {
         var transactionManager = new HibernateTransactionManager();
         transactionManager.setSessionFactory(sessionFactory);
         return transactionManager;
