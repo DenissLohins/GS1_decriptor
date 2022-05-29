@@ -1,9 +1,7 @@
 package com.decryptor.core.requests;
 
-import com.decryptor.domain.RequestEntity;
 import com.decryptor.dto.GetByIDResponse;
-import com.decryptor.repository.HibernateRepository;
-import com.decryptor.repository.HibernateRequestHistoryRepository;
+import com.decryptor.repository.RequestHistoryRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -12,7 +10,7 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 public class GetByIDService {
     @Autowired
-    private final HibernateRequestHistoryRepository database;
+    private final RequestHistoryRepository database;
 
     public GetByIDResponse getByID(Integer id) {
         var response = database.findById(id);

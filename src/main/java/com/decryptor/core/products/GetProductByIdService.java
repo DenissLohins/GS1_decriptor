@@ -1,8 +1,8 @@
-package com.decryptor.core.gtinList;
+package com.decryptor.core.products;
 
 import com.decryptor.dto.GetProductByIDRequest;
 import com.decryptor.dto.GetProductByIDResponse;
-import com.decryptor.repository.HibernateGTINRepository;
+import com.decryptor.repository.ProductRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -12,19 +12,17 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 public class GetProductByIdService {
 
-    private final HibernateGTINRepository database;
+    private final ProductRepository database;
 
-    public GetProductByIDResponse getProductById(GetProductByIDRequest request){
-        var id = request.getGtin();
+    public GetProductByIDResponse getProductById(String id){
         var result = database.findById(id);
-        log.debug("Result from DB obtained");
         if (result.isPresent()){
-            log.debug("object found");
+            log.debug("Object found");
             var response = new GetProductByIDResponse(result.get().getGtin(), result.get().getName());
             return response;
         }else {
             log.debug("Object not found");
-            new IllegalArgumentException("Product with id " + id + " is not found.");
+            new IllegalArgumentException();
             return new GetProductByIDResponse();
         }
     }

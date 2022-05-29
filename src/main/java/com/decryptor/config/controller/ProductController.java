@@ -1,15 +1,15 @@
-package com.decryptor.controller;
+package com.decryptor.config.controller;
 
-import com.decryptor.core.gtinList.AddProductService;
-import com.decryptor.core.gtinList.GetAllProducts;
-import com.decryptor.core.gtinList.GetProductByIdService;
+import com.decryptor.core.products.AddProductService;
+import com.decryptor.core.products.GetAllProducts;
+import com.decryptor.core.products.GetProductByIdService;
 import com.decryptor.dto.*;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @AllArgsConstructor
-public class GTINController {
+public class ProductController {
 
     private final AddProductService addProductService;
     private final GetAllProducts getAllProducts;
@@ -26,9 +26,9 @@ public class GTINController {
         return addProductService.add(request);
     }
 
-    @GetMapping("/gtin/id")
-    public GetProductByIDResponse getProductByID (@RequestBody GetProductByIDRequest request){
-        return getProductByIdService.getProductById(request);
+    @GetMapping("/gtin/{id}")
+    public GetProductByIDResponse getProductByID (@PathVariable String id){
+        return getProductByIdService.getProductById(id);
     }
 
 }

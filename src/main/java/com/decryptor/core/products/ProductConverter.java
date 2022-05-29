@@ -1,4 +1,4 @@
-package com.decryptor.core.gtinList;
+package com.decryptor.core.products;
 
 import com.decryptor.domain.ProductEntity;
 import com.decryptor.dto.AddProductRequest;
@@ -6,7 +6,7 @@ import com.decryptor.dto.AddProductResponse;
 import org.springframework.stereotype.Component;
 
 @Component
-public class GtinConverter {
+public class ProductConverter {
 
     public ProductEntity convertFromRequest(AddProductRequest addProductRequest){
         var result = new ProductEntity();

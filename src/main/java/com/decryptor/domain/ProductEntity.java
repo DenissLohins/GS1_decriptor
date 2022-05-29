@@ -2,13 +2,19 @@ package com.decryptor.domain;
 
 
 import com.sun.istack.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.springframework.lang.Nullable;
+import lombok.NoArgsConstructor;
+import org.springframework.context.annotation.Bean;
 
 import javax.persistence.*;
+
+
 @Data
-@Entity (name ="GTIN")
+@Entity (name ="ProductEntity")
 @Table(name = "gtin")
+@AllArgsConstructor
+@NoArgsConstructor
 public class ProductEntity {
 
     @Id

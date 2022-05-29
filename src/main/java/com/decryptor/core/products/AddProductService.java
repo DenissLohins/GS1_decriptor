@@ -1,8 +1,8 @@
-package com.decryptor.core.gtinList;
+package com.decryptor.core.products;
 
 import com.decryptor.dto.AddProductRequest;
 import com.decryptor.dto.AddProductResponse;
-import com.decryptor.repository.HibernateGTINRepository;
+import com.decryptor.repository.ProductRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +14,9 @@ import org.springframework.stereotype.Component;
 public class AddProductService {
 
     @Autowired
-    private HibernateGTINRepository gtinNames;
+    private ProductRepository gtinNames;
 
-    private GtinConverter converter;
+    private ProductConverter converter;
 
     public AddProductResponse add(AddProductRequest request){
         var entity = converter.convertFromRequest(request);
