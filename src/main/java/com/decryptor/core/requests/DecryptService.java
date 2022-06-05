@@ -73,7 +73,7 @@ public class DecryptService {
             }
             database.save(requestEntity);
         } else {
-            database.save(requestEntity);
+//            database.save(requestEntity);
             System.err.println("Wrong input!");
         }
         var response = new DecryptResponse();
