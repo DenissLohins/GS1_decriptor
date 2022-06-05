@@ -24,7 +24,7 @@ public class DecryptController {
 
     @GetMapping("/decrypt")
     public GetHistoryResponse getHistory() {
-        log.info("Received find all books request");
+        log.info("Received find all requests request");
         return getHistoryService.findAll();
     }
 
