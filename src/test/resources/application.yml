@@ -10,18 +10,9 @@ spring:
   datasource:
     password: P@ssw0rd
     username: root
-    url: jdbc:mysql://localhost:3306/decryptor
+    url: jdbc:mysql://localhost:3306/test
     driver-class-name: com.mysql.cj.jdbc.Driver
   liquibase:
-    change-log: liquibase-changeLog.xml
+    change-log: liquibase-changeLogTest.xml
 server:
   port: 8081
-logging:
-  level:
-    com.javaguru: INFO
-management:
-  endpoints:
-    web:
-      exposure:
-        include: health, metrics, info, prometheus
-      base-path: /
