@@ -46,19 +46,4 @@ public class DecryptController {
     }
 
 
-    @ExceptionHandler
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorResponseDto handle(IllegalArgumentException e) {
-        return new ErrorResponseDto(e.getMessage());
-    }
-
-    @ExceptionHandler
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorResponseDto handle(MethodArgumentNotValidException e) {
-        var errorMessages = e.getBindingResult().getFieldErrors().stream()
-                .map(field -> String.format("Field validation failed. Field: %s, message: %s",
-                        field.getField(), field.getDefaultMessage()))
-                .toList();
-        return new ErrorResponseDto(errorMessages.toString());
-    }
 }
